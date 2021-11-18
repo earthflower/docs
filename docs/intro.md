@@ -27,12 +27,12 @@ else {
 Get the user address
 
 ```js
- const account = await window.earth.enable();
+ const account = await window.earth.connect();
  console.log('account: ' + account);
  //account: xyzzzz
 ```
 
-Once connected, calling `earth.enable()` will give same connected address e.g xyzzz. Currently, user can select `ICP Secp256k1` addresses only.
+Once connected, calling `earth.connect()` will give same connected address e.g xyzzz. Currently, user can select `ICP Secp256k1` addresses only.
 
 #### Check if Earth Wallet is connected
 

@@ -1,0 +1,18 @@
+---
+sidebar_position: 2
+---
+
+# Using Earth Connect
+ 
+
+import { useState, useEffect } from 'react'
+export const EarthConnectButton = () => {
+  const [count, setCount] = useState(0)
+  return (
+    <button onClick={() => setCount(count + 1)}>Clicked {count} times!</button>
+  )
+}
+
+Click it! <EarthConnectButton />
+
+ 

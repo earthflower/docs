@@ -2,14 +2,14 @@
 sidebar_position: 1
 ---
 
-# signMessage
+# sign
 
 ### Sign Canister Method
 
-signMessage is used to sign a canister methods update or query by connected user.
+sign is used to sign a canister methods update or query by connected user.
 
 ```js
-  const response = await window.earth.signMessage({
+  const response = await window.earth.sign({
     canisterId: 'bzsui-sqaaa-aaaah-qce2a-cai',
     method: 'bearer',
     args: 'lwi75-7akor-uwiaa-aaaaa-b4arg-qaqca-aac6a-q'
@@ -25,17 +25,17 @@ signMessage is used to sign a canister methods update or query by connected user
 `canisterId` and `method` are mandatory. `args` can be `undefined` or optional based on corresponding arguments of that canister method.
 
 :::tip
-With ICP, signMessage is best suited for canister update methods like transfer, list, sell, create etc. Usually, canister queries that are repetitive like read, get, fetch etc can be fetched with anonymous/no identity. More info can be found at Dfinity docs [Query and update methods](https://smartcontracts.org/docs/developers-guide/concepts/canisters-code.html#query-update)  
+With ICP, sign is best suited for canister update methods like transfer, list, sell, create etc. Usually, canister queries that are repetitive like read, get, fetch etc can be fetched with anonymous/no identity. More info can be found at Dfinity docs [Query and update methods](https://smartcontracts.org/docs/developers-guide/concepts/canisters-code.html#query-update)  
 :::
 
 
 
 ### Error Handling
 
-Incase of any error from signMessage, an object with  `{type:"error", message:"some info"}` is resolved. For example,
+Incase of any error from sign, an object with  `{type:"error", message:"some info"}` is resolved. For example,
 
 ```js
-  const response = await window.earth.signMessage({
+  const response = await window.earth.sign({
     canisterId: 'bzsui-sqaaa-aaaah-qce2a-cai',
     method: 'bearer',
     args: 'lwi75-7akor-uwiaa-aaaaa-b4arg-qaqca-aac6a-xxx'
@@ -55,10 +55,10 @@ Incase of any error from signMessage, an object with  `{type:"error", message:"s
 ```
 
 ### Sign Batch Canister Methods 
-signMessage can be used for batch queries or batch calls  canister methods by sending array of canister methods.
+sign can be used for batch queries or batch calls  canister methods by sending array of canister methods.
 
 ```js
- const response = await window.earth.signMessage([{
+ const response = await window.earth.sign([{
     canisterId: 'bzsui-sqaaa-aaaah-qce2a-cai',
     method: 'bearer',
     args: {
@@ -91,22 +91,46 @@ signMessage can be used for batch queries or batch calls  canister methods by se
 In the above example, batch query is sent to multiple canisters
 
 
-### Troubleshooting with BigInt and Principals
+### Working with BigInt
 Here is canister Method for listing an NFT token `xbxdl-yakor-uwiaa-aaaaa-cuaab-eaqca-aacwt-a`. The expected arguments are `token (text)`, `from_subaccount (opt vec nat8)` and `price (opt nat64)`
 ```js
-const response = await window.earth.signMessage({
+const response = await window.earth.sign({
       canisterId: 'oeee4-qaaaa-aaaak-qaaeq-cai',
       method: "list"
       args: {
-        "price": [223412341211000000000],
+        "price": [BigInt(223412341211000000000)],
         "from_subaccount": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
         "token": "xbxdl-yakor-uwiaa-aaaaa-cuaab-eaqca-aacwt-a"
     }});
 ```
- * In case arguments of type `nat64` please use `int` instead of `bigInt` i.e `123`. Currently, earth wallet doesn't have out of the box support for bigInt numbers like `123n` or `BigInt(123)`.  
- * As, all signMessages are parsed by serialization and de-serialization of extension, arguments of type `principal` are serialized and canister actor couldn't parse serialized `principal`. 
- * In next version, we can provide support for `BigInt` and `principal` with custom parser.
+ * In case arguments of type `nat64` we can use [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) built-in Object, to represent whole numbers larger than `2^53 - 1` (Number.MAX_SAFE_INTEGER).  
 
+
+### Working with Principal
+For canister methods with `Principal` type of arguments, we can initialize as below.
+
+ ```js
+ import { Principal } from '@dfinity/principal';
+
+  const args = {
+      "token": "xbxdl-yakor-uwiaa-aaaaa-cuaab-eaqca-aacwt-a", 
+      "user": {
+        "principal": Principal.fromText('o7nwu-n6kuf-4afzp-ybcuf-346pr-odd54-damf5-v4pvc-4sexh-cabph-7qe')
+      }
+    }
+
+    try {
+      const response = await window.earth.sign({
+        canisterId: 'oeee4-qaaaa-aaaak-qaaeq-cai',
+        method: 'balance',
+        args: args
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    // { ok : 1}
+ ```
 
 
 Anything **unclear** or **issue** in this docs? [Please connect at Discord!](https://discord.gg/B8G75XZ92K)
