@@ -2,34 +2,61 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Introduction
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Let's discover **Earth Connect in less than 5 minutes**.
 
 ## Getting Started
 
-Get started by **creating a new site**.
+Get started by **checking if earth wallet is installed**.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**:
-
-```shell
-npm init docusaurus@latest my-website classic
+```js
+if (window.earth !== undefined) {
+    console.log('Earth Wallet Exists');
+    //Do something
+}
+else {
+    console.log('Dear User, Install Earth Wallet at https://www.earthwallet.io/');
+}
 ```
 
-## Start your site
+**Earth Wallet** can be installed **[here](https://earthwallet.io)**.
 
-Run the development server:
+## Connect user address to Dapp ⛓️
 
-```shell
-cd my-website
+Get the user address
 
-npx docusaurus start
+```js
+ const account = await window.earth.connect();
+ console.log('account: ' + account);
+ //account: xyzzzz
 ```
 
-Your site starts at `http://localhost:3000`.
+Getting user address is very simple and by calling `earth.connect()` 
 
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and displays your changes.
+Once connected, calling `earth.connect()` will give same connected address e.g xyzzz. Currently, user can select `ICP Secp256k1` addresses only.
+
+## Check if Earth Wallet is connected
+
+```js
+const isConnected = await window.earth.isConnected()
+//{connected: false} or {connected: true}
+```
+
+## Get address meta
+
+```js
+const addressMeta = await window.earth.getAddressMeta();
+/*
+    { 
+        name: 'xyz',
+        createdAt: 1635962486, 
+        principalId: 'o7nwu-xxx', 
+        publicKey: 'asddd', 
+        type: 'ecdsa'
+        } 
+/*
+```
+
+
+Anything **unclear** or **issue** in this docs? [Please connect at Discord!](https://discord.gg/B8G75XZ92K)

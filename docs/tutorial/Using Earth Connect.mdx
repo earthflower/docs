@@ -1,0 +1,24 @@
+---
+sidebar_position: 1
+---
+
+# Using Earth Connect
+
+import CodeBlock from "@theme/CodeBlock";
+import EarthConnectRaw from "!!raw-loader!../components/EarthConnect";
+import EarthConnect from "../components/EarthConnect";
+import BrowserWindow from "../components/BrowserWindow";
+<CodeBlock className="language-jsx">{EarthConnectRaw}</CodeBlock>
+
+```mdx-code-block
+<BrowserWindow>
+    <EarthConnect />
+</BrowserWindow>
+```
+
+### Example implementation of EarthConnect.
+
+Step 1: First checks if `window.earth` is `undefined`, then, ask user to install earth wallet at http://earthwallet.io
+Step 2: Get account from `window.earth.connect` and assign to state calling `setSelectedAddress`
+
+Anything **unclear** or **issue** in this docs? [Please connect at Discord!](https://discord.gg/B8G75XZ92K)
