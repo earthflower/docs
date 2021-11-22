@@ -1,0 +1,33 @@
+---
+sidebar_position: 2
+---
+
+# Sign
+
+import CodeBlock from "@theme/CodeBlock";
+import SignCode from "!!raw-loader!../components/Sign";
+import Sign from "../components/Sign";
+import BrowserWindow from "../components/BrowserWindow";
+
+<CodeBlock className="language-jsx">{SignCode}</CodeBlock>
+
+```mdx-code-block
+<BrowserWindow>
+    <Sign />
+</BrowserWindow>
+```
+
+
+### Example implementation of EarthSign
+
+Step 1: First check if `window.isConnected` is `{connected: true}`, if not, ask user to connect using `window.earth.connect` <br/>
+Step 2: Using `window.earth.sign` we can sign a canister method with parameters `canisterId`, `method` and `args`
+
+The above canisterId candid can be found at https://ic.rocks/principal/ury7f-eqaaa-aaaab-qadlq-cai
+
+:::tip
+Go through https://ic.rocks/ and search for `canisterId` in Search field and validate the method and corresponding args 
+:::
+
+
+Anything **unclear** or **issue** in this docs? [Please connect at Discord!](https://discord.gg/B8G75XZ92K)

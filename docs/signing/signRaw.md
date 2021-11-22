@@ -13,3 +13,5 @@ signRaw is used to sign a message and returns serialized buffer.
    {"type":"Buffer","data":[214,171,29,166]}
 */
 ```
+
+Anything **unclear** or **issue** in this docs? [Please connect at Discord!](https://discord.gg/B8G75XZ92K)
