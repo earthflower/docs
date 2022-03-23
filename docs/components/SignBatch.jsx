@@ -12,9 +12,9 @@ const SignBatch = () => {
     try {
       let response = await window.earth.sign([
         {
-          canisterId: "ury7f-eqaaa-aaaab-qadlq-cai",
-          method: "say",
-          args: "hello",
+          canisterId: "bzsui-sqaaa-aaaah-qce2a-cai",
+          method: "bearer",
+          args: "lwi75-7akor-uwiaa-aaaaa-b4arg-qaqca-aac6a-q",
         },
         {
           canisterId: "oeee4-qaaaa-aaaak-qaaeq-cai",
